@@ -28,6 +28,7 @@ function createTableau(inputId){
   linearExpression = new Tableau(lpString);
 
   console.log(linearExpression.toArray());
+  linearExpression.showMatrix();
 
   return linearExpression;
 }
@@ -44,6 +45,20 @@ function Tableau(linearString){
   this.constantes = extractConstantes(this.variables, linearStringSplitted[1].split("\n"));
 
   this.objective = new Constraint(this.variables, extractCoefficientedVariables(linearStringSplitted[0].split("=")[1]), "eq", "=", 0.0);
+
+  this.rows = this.constantes.length + 1;
+  this.columns = this.variables.length + 1;
+  this.matrix = [];
+  this.matrix[0] = this.objective.toArray();
+  for(var i = 0; i < this.constantes.length; i++){
+    this.matrix[i+1] = this.constantes[i].toArray();
+  }
+
+  this.showMatrix = function(){
+    for (var i = 0; i < this.matrix.length; i++) {
+      console.log(this.matrix[i]);
+    }
+  }
 
   this.toArray = function(){
     var array = [];

@@ -57,40 +57,6 @@ function Tableau(linearString){
   }
 }
 
-
-/**
- * Creates a new Constraint
- * @param  variables
- * @param  coefVariables
- * @param  op
- * @param  string
- * @param  rightHand
- */
-function Constraint(variables, coefVariables, op, string, rightHand){
-
-  for(var i = 0; i < variables.length; i++){
-    this[variables[i]] = 0.0;
-  }
-
-  for(var y = 0; y < coefVariables.length; y++){
-    this[coefVariables[y].variable] = parseFloat(coefVariables[y].coefficient);
-  }
-
-  this.variables = variables;
-  this.op = op;
-  this.string = string;
-  this.rightHand = parseFloat(rightHand);
-
-  this.toArray = function(){
-    var array = [];
-    array[0] = this.rightHand;
-    for(var i = 0; i < variables.length; i++){
-      array[i+1] = this[this.variables[i]];
-    }
-    return array;
-  }
-}
-
 /**
  * Extract all the variables inside a String
  * @param  String equation
@@ -161,6 +127,39 @@ function extractConstantes(variables, constanteEquations){
   }
 
   return constantes;
+}
+
+/**
+ * Creates a new Constraint
+ * @param  variables
+ * @param  coefVariables
+ * @param  op
+ * @param  string
+ * @param  rightHand
+ */
+function Constraint(variables, coefVariables, op, string, rightHand){
+
+  for(var i = 0; i < variables.length; i++){
+    this[variables[i]] = 0.0;
+  }
+
+  for(var y = 0; y < coefVariables.length; y++){
+    this[coefVariables[y].variable] = parseFloat(coefVariables[y].coefficient);
+  }
+
+  this.variables = variables;
+  this.op = op;
+  this.string = string;
+  this.rightHand = parseFloat(rightHand);
+
+  this.toArray = function(){
+    var array = [];
+    array[0] = this.rightHand;
+    for(var i = 0; i < variables.length; i++){
+      array[i+1] = this[this.variables[i]];
+    }
+    return array;
+  }
 }
 
 /**
